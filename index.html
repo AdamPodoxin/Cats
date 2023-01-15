@@ -5,24 +5,29 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>The Cats</title>
+	<title>Raining Cats and Dogs</title>
 </head>
 
 <body>
 	<button onclick="setCatImg();">Click to get The Cat</button>
+	<button onclick="setDogImg();">Click to get The Dog</button>
 	<br>
-	<img id="cat-img" />
+	<img id="img" />
 
 	<script>
-		const apiURL = 'https://api.thecatapi.com/v1/images/search';
-		const apiKey = 'live_1tCrWbmxQitRrRQvK0OvvhuudrGkZcWPEKhbOYHA9EqFVAogxDfVbDJMrIuSGNBU';
+		const cat_apiURL = 'https://api.thecatapi.com/v1/images/search';
+		const cat_apiKey = 'live_1tCrWbmxQitRrRQvK0OvvhuudrGkZcWPEKhbOYHA9EqFVAogxDfVbDJMrIuSGNBU';
 
-		const catImg = document.getElementById('cat-img');
+		const dog_apiURL = 'https://api.thedogapi.com/v1/images/search';
+		const dog_apiKey = 'live_b8xHbin2fbTdp7YJChIZJHejn7iTTo1NzmjMoOZbv0ykFxyjFGH4q4KqSMmI7BtH';
+
+
+		const img = document.getElementById('img');
 
 		const getCat = async () => {
-			const response = await fetch(apiURL, {
+			const response = await fetch(cat_apiURL, {
 				headers: {
-					'x-api-key': apiKey
+					'x-api-key': cat_apiKey
 				}
 			});
 			const json = await response.json();
@@ -32,9 +37,27 @@
 			return imgUrl;
 		};
 
+		const getDog = async () => {
+			const response = await fetch(dog_apiURL, {
+				headers: {
+					'x-api-key': dog_apiKey
+				}
+			});
+			const json = await response.json();
+			const dog = json[0];
+			const imgUrl = dog.url;
+
+			return imgUrl;
+		};
+
 		const setCatImg = async () => {
 			const imgUrl = await getCat();
-			catImg.setAttribute('src', imgUrl);
+			img.setAttribute('src', imgUrl);
+		};
+
+		const setDogImg = async () => {
+			const imgUrl = await getDog();
+			img.setAttribute('src', imgUrl);
 		};
 	</script>
 </body>
