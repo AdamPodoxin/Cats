@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>The Cats</title>
+</head>
+
+<body>
+	<button onclick="setCatImg();">Click to get The Cat</button>
+	<br>
+	<img id="cat-img" />
+
+	<script>
+		const apiURL = 'https://api.thecatapi.com/v1/images/search';
+		const apiKey = 'live_1tCrWbmxQitRrRQvK0OvvhuudrGkZcWPEKhbOYHA9EqFVAogxDfVbDJMrIuSGNBU';
+
+		const catImg = document.getElementById('cat-img');
+
+		const getCat = async () => {
+			const response = await fetch(apiURL, {
+				headers: {
+					'x-api-key': apiKey
+				}
+			});
+			const json = await response.json();
+			const cat = json[0];
+			const imgUrl = cat.url;
+
+			return imgUrl;
+		};
+
+		const setCatImg = async () => {
+			const imgUrl = await getCat();
+			catImg.setAttribute('src', imgUrl);
+		};
+	</script>
+</body>
+
+</html>
